@@ -18,8 +18,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     # We are building this application with Java 8
-    - name: Review Artifacts
-      run: echo ${ github.head_ref }
     - name: Setup Java JDK
       uses: actions/setup-java@v1.4.3
       with:
@@ -33,11 +31,9 @@ jobs:
     - name: Setup Java JDK
       uses: actions/setup-java@v1.4.3
       with:
-        java-version: 1.8
-    - name: Review Artifacts
-      run: ls -l ${GITHUB_WORKSPACE}        
+        java-version: 1.8     
     - name: NextGen Static Analysis
-      run: ${GITHUB_WORKSPACE}/sl analyze --verbose --diagnostic --wait --app "HardcodedName" --tag branch={{`${{ github.head_ref }}`}} --vcs-prefix-correction "*=src/main/java/" --java --cpg target/vulnado-0.0.1-SNAPSHOT.jar
+      run: ${GITHUB_WORKSPACE}/sl analyze --verbose --diagnostic --wait --app "Github-CI-Vulnado-App" --tag branch={{`${{ github.head_ref }}`}} --vcs-prefix-correction "*=src/main/java/" --java --cpg target/vulnado-0.0.1-SNAPSHOT.jar
 
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
