@@ -38,8 +38,9 @@ jobs:
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Install jq
+      run: sudo apt-get install jq
     - name: Log NG SAST Results
       run: |
         curl --location --request GET 'https://www.shiftleft.io/api/v4//orgs/${{ secrets.SHIFTLEFT_ORG_ID }}/apps/Github-CI-Vulnado-App/findings?severity=critical' --header 'Authorization: Bearer ${{ secrets.SHIFTLEFT_PUBLIC_API_TOKEN}}' > ${GITHUB_WORKSPACE}/vulns_crit.json && \
-        cat ${GITHUB_WORKSPACE}/vulns_crit.json && \
         < vulns.json jq '.response.findings[] | {id, title}'
