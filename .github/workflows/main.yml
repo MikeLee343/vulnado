@@ -24,6 +24,8 @@ jobs:
         java-version: 1.8
     - name: Package with maven
       run: mvn compile package
+    - name: Review Artifacts
+      run: ls -l
     - name: Download ShiftLeft CLI
       run: |
         curl https://cdn.shiftleft.io/download/sl > ${GITHUB_WORKSPACE}/sl && chmod a+rx ${GITHUB_WORKSPACE}/sl
