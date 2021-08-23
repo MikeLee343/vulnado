@@ -25,7 +25,7 @@ jobs:
     - name: Package with maven
       run: mvn compile package
     - name: Review Artifacts
-      run: ls -l target
+      run: ls -l ${GITHUB_WORKSPACE}
     - name: Download ShiftLeft CLI
       run: |
         curl https://cdn.shiftleft.io/download/sl > ${GITHUB_WORKSPACE}/sl && chmod a+rx ${GITHUB_WORKSPACE}/sl
@@ -34,6 +34,8 @@ jobs:
       uses: actions/setup-java@v1.4.3
       with:
         java-version: 1.8
+    - name: Review Artifacts
+      run: ls -l ${GITHUB_WORKSPACE}        
     - name: NextGen Static Analysis
       run: ${GITHUB_WORKSPACE}/sl analyze --wait --app {{ .Application }} --tag branch={{`${{ github.head_ref }}`}} --vcs-prefix-correction "*=src/main/java/" --java --cpg target/vulnado-0.0.1-SNAPSHOT.jar
 
