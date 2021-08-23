@@ -40,4 +40,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Log NG SAST Results
       run: |
-        curl --location --request GET 'https://www.shiftleft.io/api/v4//orgs/${{ secrets.SHIFTLEFT_ORG_ID }}/apps/Github-CI-Vulnado-App/findings?severity=critical' --header 'Authorization: Bearer ${{ secrets.SHIFTLEFT_PUBLIC_API_TOKEN}}'
+        curl --location --request GET 'https://www.shiftleft.io/api/v4//orgs/${{ secrets.SHIFTLEFT_ORG_ID }}/apps/Github-CI-Vulnado-App/findings?severity=critical' --header 'Authorization: Bearer ${{ secrets.SHIFTLEFT_PUBLIC_API_TOKEN}}' > ${GITHUB_WORKSPACE}/vulns_crit.json && \
+        cat ${GITHUB_WORKSPACE}/vulns_crit.json
