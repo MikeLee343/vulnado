@@ -34,6 +34,9 @@ jobs:
         java-version: 1.8     
     - name: NextGen Static Analysis
       run: ${GITHUB_WORKSPACE}/sl analyze --verbose --diagnostic --wait --app "Github-CI-Vulnado-App" --tag branch={{`${{ github.head_ref }}`}} --vcs-prefix-correction "*=src/main/java/" --java --cpg target/vulnado-0.0.1-SNAPSHOT.jar
+    - name: Log NG SAST Results
+      run: curl --location --request GET 'https://www.shiftleft.io/api/v4//orgs/30496a8c-2152-4492-b6f2-513b9b8a2b46/apps/Github-CI-Vulnado-App/findings?severity=critical' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjkwNjI5NzgsImlzcyI6IlNoaWZ0TGVmdCIsIm9yZ0lEIjoiMzA0OTZhOGMtMjE1Mi00NDkyLWI2ZjItNTEzYjliOGEyYjQ2IiwidXNlcklEIjoiMDgxZjQwMTYtNTdlNS00ODRjLThhZGUtMWYwM2ZhOTQ1YzYzIiwic2NvcGVzIjpbInNlYXRzOndyaXRlIiwiZXh0ZW5kZWQiLCJhcGk6djIiLCJ1cGxvYWRzOndyaXRlIiwibG9nOndyaXRlIiwicGlwZWxpbmVzdGF0dXM6cmVhZCIsIm1ldHJpY3M6d3JpdGUiLCJwb2xpY2llczpjdXN0b21lciJdfQ.Na0OZdhMykvXk0Mj9LYolc69Ov_W8eAD2Em_1fyVTVIIwvo7yTVi7HkGZU-RVvOQb0B9xWFWBHfpxMqT5mh6HHpcZQqJYX6n83IezNdCAEkRDy9Nh7HOP6klzdoY7reovn1U-gEEsQxw8Rk_pMIcvJccj7pPcejWSKtTMcEgIDXhCXGMhgwszr4CRv0f-fMKrAx2mR-IIP7a_FZ5IY_8iiqyvphA1cPcE0gvWromrW3uvCx4o3Jpx2UXZ9sKyvOl-mBrEW3md1h8snUFfSJ9BXDpGW7rRLjBF-HiNPPlkrnWu5JfS7wPt1BcOJLV39LjX8W-XLvzPmmh7EDIE7WCFA'
 
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
